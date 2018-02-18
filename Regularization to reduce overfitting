@@ -2,7 +2,6 @@
 #Welcome to the second assignment of this week. Deep Learning models have so much flexibility and capacity that overfitting can be a serious problem, if the training dataset is not big enough. Sure it does well on the training set, but the learned network doesn't generalize to new examples that it has never seen!
 #You will learn to: Use regularization in your deep learning models.
 #Let's first import the packages you are going to use.
-#In [1]:
  
 # import packages
 import numpy as np
