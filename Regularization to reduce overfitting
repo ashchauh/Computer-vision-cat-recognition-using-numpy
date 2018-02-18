@@ -18,47 +18,32 @@ from testCases import *
 plt.rcParams['figure.figsize'] = (7.0, 4.0) # set default size of plots
 plt.rcParams['image.interpolation'] = 'nearest'
 plt.rcParams['image.cmap'] = 'gray'
-Problem Statement: You have just been hired as an AI expert by the French Football Corporation. They would like you to recommend positions where France's goal keeper should kick the ball so that the French team's players can then hit it with their head.
+#Problem Statement: You have just been hired as an AI expert by the French Football Corporation. They would like you to recommend positions where France's goal keeper should kick the ball so that the French team's players can then hit it with their head.
  
-Figure 1 : Football field
-The goal keeper kicks the ball in the air, the players of each team are fighting to hit the ball with their head
-They give you the following 2D dataset from France's past 10 games.
-In [2]:
+#Figure 1 : Football field
+#The goal keeper kicks the ball in the air, the players of each team are fighting to hit the ball with their head
+#They give you the following 2D dataset from France's past 10 games.
+
  
 train_X, train_Y, test_X, test_Y = load_2D_dataset()
 
-Each dot corresponds to a position on the football field where a football player has hit the ball with his/her head after the French goal keeper has shot the ball from the left side of the football field.
-•	If the dot is blue, it means the French player managed to hit the ball with his/her head
-•	If the dot is red, it means the other team's player hit the ball with their head
-Your goal: Use a deep learning model to find the positions on the field where the goalkeeper should kick the ball.
-Analysis of the dataset: This dataset is a little noisy, but it looks like a diagonal line separating the upper left half (blue) from the lower right half (red) would work well.
-You will first try a non-regularized model. Then you'll learn how to regularize it and decide which model you will choose to solve the French Football Corporation's problem.
-1 - Non-regularized model
-You will use the following neural network (already implemented for you below). This model can be used:
-•	in regularization mode -- by setting the lambd input to a non-zero value. We use "lambd" instead of "lambda" because "lambda" is a reserved keyword in Python.
-•	in dropout mode -- by setting the keep_prob to a value less than one
-You will first try the model without any regularization. Then, you will implement:
-•	L2 regularization -- functions: "compute_cost_with_regularization()" and "backward_propagation_with_regularization()"
-•	Dropout -- functions: "forward_propagation_with_dropout()" and "backward_propagation_with_dropout()"
-In each part, you will run this model with the correct inputs so that it calls the functions you've implemented. Take a look at the code below to familiarize yourself with the model.
-In [3]:
  
 def model(X, Y, learning_rate = 0.3, num_iterations = 30000, print_cost = True, lambd = 0, keep_prob = 1):
     """
-    Implements a three-layer neural network: LINEAR->RELU->LINEAR->RELU->LINEAR->SIGMOID.
+    #Implements a three-layer neural network: LINEAR->RELU->LINEAR->RELU->LINEAR->SIGMOID.
     
-    Arguments:
-    X -- input data, of shape (input size, number of examples)
-    Y -- true "label" vector (1 for blue dot / 0 for red dot), of shape (output size, number of examples)
-    learning_rate -- learning rate of the optimization
-    num_iterations -- number of iterations of the optimization loop
-    print_cost -- If True, print the cost every 10000 iterations
-    lambd -- regularization hyperparameter, scalar
-    keep_prob - probability of keeping a neuron active during drop-out, scalar.
+    #Arguments:
+    #X -- input data, of shape (input size, number of examples)
+    #Y -- true "label" vector (1 for blue dot / 0 for red dot), of shape (output size, number of examples)
+    #learning_rate -- learning rate of the optimization
+    #num_iterations -- number of iterations of the optimization loop
+    #print_cost -- If True, print the cost every 10000 iterations
+    #lambd -- regularization hyperparameter, scalar
+    #keep_prob - probability of keeping a neuron active during drop-out, scalar.
     
-    Returns:
-    parameters -- parameters learned by the model. They can then be used to predict.
-    """
+    #Returns:
+    #parameters -- parameters learned by the model. They can then be used to predict.
+    #"""
         
     grads = {}
     costs = []                            # to keep track of the cost
@@ -111,24 +96,24 @@ def model(X, Y, learning_rate = 0.3, num_iterations = 30000, print_cost = True, 
     plt.show()
     
     return parameters
-Let's train the model without any regularization, and observe the accuracy on the train/test sets.
-In [4]:
+#Let's train the model without any regularization, and observe the accuracy on the train/test sets.
+
  
 parameters = model(train_X, train_Y)
 print ("On the training set:")
 predictions_train = predict(train_X, train_Y, parameters)
 print ("On the test set:")
 predictions_test = predict(test_X, test_Y, parameters)
-Cost after iteration 0: 0.6557412523481002
-Cost after iteration 10000: 0.16329987525724216
-Cost after iteration 20000: 0.13851642423255986
+#Cost after iteration 0: 0.6557412523481002
+#Cost after iteration 10000: 0.16329987525724216
+#Cost after iteration 20000: 0.13851642423255986
 
-On the training set:
-Accuracy: 0.947867298578
-On the test set:
-Accuracy: 0.915
-The train accuracy is 94.8% while the test accuracy is 91.5%. This is the baseline model (you will observe the impact of regularization on this model). Run the following code to plot the decision boundary of your model.
-In [5]:
+#On the training set:
+#Accuracy: 0.947867298578
+#On the test set:
+#Accuracy: 0.915
+#The train accuracy is 94.8% while the test accuracy is 91.5%. This is the baseline model (you will observe the impact of regularization on this model). Run the following code to plot the decision boundary of your model.
+
  
 plt.title("Model without regularization")
 axes = plt.gca()
@@ -136,17 +121,17 @@ axes.set_xlim([-0.75,0.40])
 axes.set_ylim([-0.75,0.65])
 plot_decision_boundary(lambda x: predict_dec(parameters, x.T), train_X, train_Y)
 
-The non-regularized model is obviously overfitting the training set. It is fitting the noisy points! Lets now look at two techniques to reduce overfitting.
-2 - L2 Regularization
-The standard way to avoid overfitting is called L2 regularization. It consists of appropriately modifying your cost function, from:
+#The non-regularized model is obviously overfitting the training set. It is fitting the noisy points! Lets now look at two techniques to reduce overfitting.
+#2 - L2 Regularization
+#The standard way to avoid overfitting is called L2 regularization. It consists of appropriately modifying your cost function, from:
 J=−1m∑i=1m(y(i)log(a[L](i))+(1−y(i))log(1−a[L](i)))(1)(1)J=−1m∑i=1m(y(i)log⁡(a[L](i))+(1−y(i))log⁡(1−a[L](i)))
-To:
+
 Jregularized=−1m∑i=1m(y(i)log(a[L](i))+(1−y(i))log(1−a[L](i)))cross-entropy cost+1mλ2∑l∑k∑jW[l]2k,jL2 regularization cost(2)(2)Jregularized=−1m∑i=1m(y(i)log⁡(a[L](i))+(1−y(i))log⁡(1−a[L](i)))⏟cross-entropy cost+1mλ2∑l∑k∑jWk,j[l]2⏟L2 regularization cost
-Let's modify your cost and observe the consequences.
+#Let's modify your cost and observe the consequences.
 Exercise: Implement compute_cost_with_regularization() which computes the cost given by formula (2). To calculate ∑k∑jW[l]2k,j∑k∑jWk,j[l]2 , use :
 np.sum(np.square(Wl))
-Note that you have to do this for W[1]W[1], W[2]W[2] and W[3]W[3], then sum the three terms and multiply by 1mλ21mλ2.
-In [6]:
+#Note that you have to do this for W[1]W[1], W[2]W[2] and W[3]W[3], then sum the three terms and multiply by 1mλ21mλ2.
+
  
 # GRADED FUNCTION: compute_cost_with_regularization
 
@@ -188,7 +173,7 @@ Of course, because you changed the cost, you have to change backward propagation
 Exercise: Implement the changes needed in backward propagation to take into account regularization. The changes only concern dW1, dW2 and dW3. For each, you have to add the regularization term's gradient (ddW(12λmW2)=λmWddW(12λmW2)=λmW).
 In [8]:
  
-# GRADED FUNCTION: backward_propagation_with_regularization
+#backward_propagation_with_regularization
 
 def backward_propagation_with_regularization(X, Y, cache, lambd):
     """
@@ -279,37 +264,10 @@ axes.set_xlim([-0.75,0.40])
 axes.set_ylim([-0.75,0.65])
 plot_decision_boundary(lambda x: predict_dec(parameters, x.T), train_X, train_Y)
 
-Observations:
-•	The value of λλ is a hyperparameter that you can tune using a dev set.
-•	L2 regularization makes your decision boundary smoother. If λλ is too large, it is also possible to "oversmooth", resulting in a model with high bias.
-What is L2-regularization actually doing?:
-L2-regularization relies on the assumption that a model with small weights is simpler than a model with large weights. Thus, by penalizing the square values of the weights in the cost function you drive all the weights to smaller values. It becomes too costly for the cost to have large weights! This leads to a smoother model in which the output changes more slowly as the input changes.
-What you should remember -- the implications of L2-regularization on:
-•	The cost computation:
-	A regularization term is added to the cost
-•	The backpropagation function:
-	There are extra terms in the gradients with respect to weight matrices
-•	Weights end up smaller ("weight decay"):
-	Weights are pushed to smaller values.
-3 - Dropout
-Finally, dropout is a widely used regularization technique that is specific to deep learning. It randomly shuts down some neurons in each iteration. Watch these two videos to see what this means!
 
 
-Figure 2 : Drop-out on the second hidden layer. 
-At each iteration, you shut down (= set to zero) each neuron of a layer with probability 1−keep_prob1−keep_prob or keep it with probability keep_probkeep_prob (50% here). The dropped neurons don't contribute to the training in both the forward and backward propagations of the iteration.
-Figure 3 : Drop-out on the first and third hidden layers. 
-1st1st layer: we shut down on average 40% of the neurons. 3rd3rd layer: we shut down on average 20% of the neurons.
-When you shut some neurons down, you actually modify your model. The idea behind drop-out is that at each iteration, you train a different model that uses only a subset of your neurons. With dropout, your neurons thus become less sensitive to the activation of one other specific neuron, because that other neuron might be shut down at any time.
-3.1 - Forward propagation with dropout
-Exercise: Implement the forward propagation with dropout. You are using a 3 layer neural network, and will add dropout to the first and second hidden layers. We will not apply dropout to the input layer or output layer.
-Instructions: You would like to shut down some neurons in the first and second layers. To do that, you are going to carry out 4 Steps:
-1.	In lecture, we dicussed creating a variable d[1]d[1] with the same shape as a[1]a[1] using np.random.rand() to randomly get numbers between 0 and 1. Here, you will use a vectorized implementation, so create a random matrix D[1]=[d[1](1)d[1](2)...d[1](m)]D[1]=[d[1](1)d[1](2)...d[1](m)] of the same dimension as A[1]A[1].
-2.	Set each entry of D[1]D[1] to be 0 with probability (1-keep_prob) or 1 with probability (keep_prob), by thresholding values in D[1]D[1] appropriately. Hint: to set all the entries of a matrix X to 0 (if entry is less than 0.5) or 1 (if entry is more than 0.5) you would do: X = (X < 0.5). Note that 0 and 1 are respectively equivalent to False and True.
-3.	Set A[1]A[1] to A[1]∗D[1]A[1]∗D[1]. (You are shutting down some neurons). You can think of D[1]D[1] as a mask, so that when it is multiplied with another matrix, it shuts down some of the values.
-4.	Divide A[1]A[1] by keep_prob. By doing this you are assuring that the result of the cost will still have the same expected value as without drop-out. (This technique is also called inverted dropout.)
-In [12]:
  
-# GRADED FUNCTION: forward_propagation_with_dropout
+# forward_propagation_with_dropout
 
 def forward_propagation_with_dropout(X, parameters, keep_prob = 0.5):
     """
@@ -380,7 +338,7 @@ Instruction: Backpropagation with dropout is actually quite easy. You will have 
 2.	During forward propagation, you had divided A1 by keep_prob. In backpropagation, you'll therefore have to divide dA1 by keep_prob again (the calculus interpretation is that if A[1]A[1] is scaled by keep_prob, then its derivative dA[1]dA[1] is also scaled by the same keep_prob).
 In [14]:
  
-# GRADED FUNCTION: backward_propagation_with_dropout
+# backward_propagation_with_dropout
 
 def backward_propagation_with_dropout(X, Y, cache, keep_prob):
     """
