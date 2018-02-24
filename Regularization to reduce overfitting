@@ -1,7 +1,6 @@
 #Regularization
-#Welcome to the second assignment of this week. Deep Learning models have so much flexibility and capacity that overfitting can be a serious problem, if the training dataset is not big enough. Sure it does well on the training set, but the learned network doesn't generalize to new examples that it has never seen!
-#You will learn to: Use regularization in your deep learning models.
-#Let's first import the packages you are going to use.
+#Deep Learning models have so much flexibility and capacity that overfitting can be a serious problem, if the training dataset is not big enough. Sure it does well on the training set, but the learned network doesn't generalize to new examples that it has never seen!
+#Use regularization in your deep learning models.
  
 # import packages
 import numpy as np
@@ -19,13 +18,11 @@ plt.rcParams['image.interpolation'] = 'nearest'
 plt.rcParams['image.cmap'] = 'gray'
 #Problem Statement: You have just been hired as an AI expert by the French Football Corporation. They would like you to recommend positions where France's goal keeper should kick the ball so that the French team's players can then hit it with their head.
  
-#Figure 1 : Football field
 #The goal keeper kicks the ball in the air, the players of each team are fighting to hit the ball with their head
 #They give you the following 2D dataset from France's past 10 games.
 
  
 train_X, train_Y, test_X, test_Y = load_2D_dataset()
-
  
 def model(X, Y, learning_rate = 0.3, num_iterations = 30000, print_cost = True, lambd = 0, keep_prob = 1):
     """
@@ -125,7 +122,9 @@ plot_decision_boundary(lambda x: predict_dec(parameters, x.T), train_X, train_Y)
 #The standard way to avoid overfitting is called L2 regularization. It consists of appropriately modifying your cost function, from:
 J=−1m∑i=1m(y(i)log(a[L](i))+(1−y(i))log(1−a[L](i)))(1)(1)J=−1m∑i=1m(y(i)log⁡(a[L](i))+(1−y(i))log⁡(1−a[L](i)))
 
-Jregularized=−1m∑i=1m(y(i)log(a[L](i))+(1−y(i))log(1−a[L](i)))cross-entropy cost+1mλ2∑l∑k∑jW[l]2k,jL2 regularization cost(2)(2)Jregularized=−1m∑i=1m(y(i)log⁡(a[L](i))+(1−y(i))log⁡(1−a[L](i)))⏟cross-entropy cost+1mλ2∑l∑k∑jWk,j[l]2⏟L2 regularization cost
+Jregularized=−1m∑i=1m(y(i)log(a[L](i))+(1−y(i))log(1−a[L](i)))
+cross-entropy cost+1mλ2∑l∑k∑jW[l]2k,jL2 
+#regularization cost(2)(2)Jregularized=−1m∑i=1m(y(i)log⁡(a[L](i))+(1−y(i))log⁡(1−a[L](i)))⏟cross-entropy cost+1mλ2∑l∑k∑jWk,j[l]2⏟L2 regularization cost
 #Let's modify your cost and observe the consequences.
 Exercise: Implement compute_cost_with_regularization() which computes the cost given by formula (2). To calculate ∑k∑jW[l]2k,j∑k∑jWk,j[l]2 , use :
 np.sum(np.square(Wl))
