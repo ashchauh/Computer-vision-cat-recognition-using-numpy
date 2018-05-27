@@ -51,13 +51,13 @@ print ("b = " + str(b))
     
     A = None                                    # compute activation
     cost = None                                 # compute cost
-    ### END CODE HERE ###
+    
     
     # BACKWARD PROPAGATION (TO FIND GRAD)
     ### START CODE HERE ### (≈ 2 lines of code)
     dw = None
     db = None
-    ### END CODE HERE ###
+    
 
     assert(dw.shape == w.shape)
     assert(db.dtype == float)
@@ -93,7 +93,7 @@ def optimize(w, b, X, Y, num_iterations, learning_rate, print_cost = False):
         ### START CODE HERE ###
         w = None
         b = None
-        ### END CODE HERE ###
+        
         
         # Record the costs
         if i % 100 == 0:
@@ -123,9 +123,9 @@ def predict(w, b, X):
     w = w.reshape(X.shape[0], 1)
     
     # Compute vector "A" predicting the probabilities of a cat being present in the picture
-    ### START CODE HERE ### (≈ 1 line of code)
+    
     A = None
-    ### END CODE HERE ###
+    
     
     for i in range(A.shape[1]):
         
