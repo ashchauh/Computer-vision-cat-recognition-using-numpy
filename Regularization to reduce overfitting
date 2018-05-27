@@ -381,7 +381,6 @@ def backward_propagation_with_dropout(X, Y, cache, keep_prob):
                  "dZ1": dZ1, "dW1": dW1, "db1": db1}
     
     return gradients
-In [15]:
  
 X_assess, Y_assess, cache = backward_propagation_with_dropout_test_case()
 
@@ -400,7 +399,6 @@ dA2	[[ 0.58180856 0. -0.00299679 0. -0.27715731] [ 0. 0.53159854 -0. 0.53159854 
 Let's now run the model with dropout (keep_prob = 0.86). It means at every iteration you shut down each neurons of layer 1 and 2 with 24% probability. The function model() will now call:
 •	forward_propagation_with_dropout instead of forward_propagation.
 •	backward_propagation_with_dropout instead of backward_propagation.
-In [16]:
  
 parameters = model(train_X, train_Y, keep_prob = 0.86, learning_rate = 0.3)
 
