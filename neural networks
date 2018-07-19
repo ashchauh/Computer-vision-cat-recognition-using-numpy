@@ -54,7 +54,7 @@ print ("b = " + str(b))
     
     
     # BACKWARD PROPAGATION (TO FIND GRAD)
-    ### START CODE HERE ### (≈ 2 lines of code)
+    ### 
     dw = None
     db = None
     
@@ -130,7 +130,7 @@ def predict(w, b, X):
     for i in range(A.shape[1]):
         
         # Convert probabilities A[0,i] to actual predictions p[0,i]
-        ### START CODE HERE ### (≈ 4 lines of code)
+        ###CODE## (≈ 4)
         pass
         ### END CODE HERE ###
     
@@ -155,7 +155,7 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
     Y_prediction_test = None
     Y_prediction_train = None
 
-    ### END CODE HERE ###
+    ###END###
 
     # Print train/test Errors
     print("train accuracy: {} %".format(100 - np.mean(np.abs(Y_prediction_train - Y_train)) * 100))
