@@ -231,9 +231,9 @@ Expected Output:
 dW1	[[-0.25604646 0.12298827 -0.28297129] [-0.17706303 0.34536094 -0.4410571 ]]
 dW2	[[ 0.79276486 0.85133918] [-0.0957219 -0.01720463] [-0.13100772 -0.03750433]]
 dW3	[[-1.77691347 -0.11832879 -0.09397446]]
-Let's now run the model with L2 regularization (λ=0.7)(λ=0.7). The model() function will call:
-•	compute_cost_with_regularization instead of compute_cost
-•	backward_propagation_with_regularization instead of backward_propagation
+#Let's now run the model with L2 regularization (λ=0.7)(λ=0.7). The model() function will call:
+#•	compute_cost_with_regularization instead of compute_cost
+#•	backward_propagation_with_regularization instead of backward_propagation
 In [10]:
  
 parameters = model(train_X, train_Y, lambd = 0.7)
@@ -245,12 +245,12 @@ Cost after iteration 0: 0.6974484493131264
 Cost after iteration 10000: 0.2684918873282239
 Cost after iteration 20000: 0.2680916337127301
 
-On the train set:
+#On the train set:
 Accuracy: 0.938388625592
-On the test set:
+#On the test set:
 Accuracy: 0.93
-Congrats, the test set accuracy increased to 93%. You have saved the French football team!
-You are not overfitting the training data anymore. Let's plot the decision boundary.
+The test set accuracy increased to 93%. We have saved the French football team!
+We are not overfitting the training data anymore. Let's plot the decision boundary.
 In [11]:
  
 plt.title("Model with L2-regularization")
@@ -297,7 +297,7 @@ def forward_propagation_with_dropout(X, parameters, keep_prob = 0.5):
     # LINEAR -> RELU -> LINEAR -> RELU -> LINEAR -> SIGMOID
     Z1 = np.dot(W1, X) + b1
     A1 = relu(Z1)
-    ### START CODE HERE ### (approx. 4 lines)         # Steps 1-4 below correspond to the Steps 1-4 described above. 
+    #### Steps 1-4 below correspond to the Steps 1-4 described above. 
     D1 = np.random.rand(A1.shape[0], A1.shape[1])                                         # Step 1: initialize matrix D1 = np.random.rand(..., ...)
     D1 = D1 = D1 < keep_prob                                        # Step 2: convert entries of D1 to 0 or 1 (using keep_prob as the threshold)
     A1 = A1 * D1                                          # Step 3: shut down some neurons of A1
@@ -407,12 +407,12 @@ Cost after iteration 0: 0.6543912405149825
 Cost after iteration 10000: 0.06101698657490559
 Cost after iteration 20000: 0.060582435798513114
 
-On the train set:
+#On the train set:
 Accuracy: 0.928909952607
 On the test set:
 Accuracy: 0.95
-Dropout works great! The test accuracy has increased again (to 95%)! Your model is not overfitting the training set and does a great job on the test set. The French football team will be forever grateful to you!
-Run the code below to plot the decision boundary.
+#Dropout works great! The test accuracy has increased again (to 95%)! Your model is not overfitting the training set and does a great job on the test set. The French football team will be forever grateful to you!
+#Run the code below to plot the decision boundary.
 In [17]:
  
 plt.title("Model with dropout")
