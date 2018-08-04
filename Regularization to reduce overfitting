@@ -151,9 +151,9 @@ def compute_cost_with_regularization(A3, Y, parameters, lambd):
     
     cross_entropy_cost = compute_cost(A3, Y) # This gives you the cross-entropy part of the cost
     
-    ### START CODE HERE ### (approx. 1 line)
+   
     L2_regularization_cost = lambd * (np.sum(np.square(W1)) + np.sum(np.square(W2)) + np.sum(np.square(W3))) / (2 * m)
-    ### END CODER HERE ###
+    
     
     cost = cross_entropy_cost + L2_regularization_cost
     
@@ -190,16 +190,15 @@ def backward_propagation_with_regularization(X, Y, cache, lambd):
     
     dZ3 = A3 - Y
     
-    ### START CODE HERE ### (approx. 1 line)
+    
     dW3 = 1./m * np.dot(dZ3, A2.T) + (lambd * W3) / m
-    ### END CODE HERE ###
     db3 = 1./m * np.sum(dZ3, axis=1, keepdims = True)
     
     dA2 = np.dot(W3.T, dZ3)
     dZ2 = np.multiply(dA2, np.int64(A2 > 0))
-    ### START CODE HERE ### (approx. 1 line)
+    
     dW2 = 1./m * np.dot(dZ2, A1.T) + (lambd * W2) / m
-    ### END CODE HERE ###
+    
     db2 = 1./m * np.sum(dZ2, axis=1, keepdims = True)
     
     dA1 = np.dot(W2.T, dZ2)
