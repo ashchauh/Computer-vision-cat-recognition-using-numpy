@@ -248,9 +248,9 @@ Cost after iteration 20000: 0.2680916337127301
 Accuracy: 0.938388625592
 #On the test set:
 Accuracy: 0.93
-The test set accuracy increased to 93%. We have saved the French football team!
-We are not overfitting the training data anymore. Let's plot the decision boundary.
-In [11]:
+#The test set accuracy increased to 93%. We have saved the French football team!
+#We are not overfitting the training data anymore. Let's plot the decision boundary.
+
  
 plt.title("Model with L2-regularization")
 axes = plt.gca()
